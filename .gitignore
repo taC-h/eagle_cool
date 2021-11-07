@@ -1,0 +1,6 @@
+venv/
+testenv/
+.vscode/
+build/
+dist/
+eagle_cool.egg-info/
