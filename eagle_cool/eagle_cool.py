@@ -1,4 +1,4 @@
-from typing import List,  overload, Optional
+from typing import List,  overload, Optional, Dict, Any
 from dataclasses import asdict
 from ._util import get, post, dict2query, reject_none
 from ._types import Color, URLItem, PathItem
@@ -9,15 +9,15 @@ class Eagle():
         self._url_base = f"{schema}{domain}:{port}/api"
     
     #APPLICSTION
-    def aplication_info(self):
+    def aplication_info(self)  -> Dict[str, Any]:
         return get(self._url_base + "/application/info")
     
     #FOLDER
     @overload
-    def folder_create(self, *, json: dict):
+    def folder_create(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def folder_create(self, folderName: str , parent: str):
+    def folder_create(self, folderName: str , parent: str)  -> Dict[str, Any]:
         ...
     
     def folder_create(
@@ -25,7 +25,7 @@ class Eagle():
         json: Optional[dict],
         folderName: Optional[str],
         parent: Optional[str]
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "folderName": folderName,
             "parent": parent,
@@ -33,18 +33,18 @@ class Eagle():
         return post(self._url_base + "/folder/create", json=json)
     
     @overload
-    def folder_rename(self, *, json: dict):
+    def folder_rename(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def folder_rename(self, *, filderId: str, folderName: str):
+    def folder_rename(self, *, filderId: str, folderName: str)  -> Dict[str, Any]:
         ...
-        
+    
     def folder_rename(
         self, *,
         json: Optional[dict],
         folderId: Optional[str],
         folderName: Optional[str]
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "folderId": folderId,
             "folderName": folderName,
@@ -52,10 +52,10 @@ class Eagle():
         return post(self._url_base + "/folder/rename", json=json)
     
     @overload
-    def folder_update(self, *, json: dict):
+    def folder_update(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def folder_update(self, folderId: str, newName: str, newDescription: str, newColor: Color):
+    def folder_update(self, folderId: str, newName: str, newDescription: str, newColor: Color)  -> Dict[str, Any]:
         ...
     
     def folder_update(self, *,
@@ -64,7 +64,7 @@ class Eagle():
         newName: Optional[str],
         newDescription: Optional[str],
         newColor: Optional[Color],
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "folderId": folderId,
             "newName": newName,
@@ -73,15 +73,15 @@ class Eagle():
         })
         return post(self._url_base + "/folder/update", json=json)
     
-    def folder_list(self):
+    def folder_list(self)  -> Dict[str, Any]:
         return get(self._url_base + "/folder/list")
 
-    def folder_listRecent(self):
+    def folder_listRecent(self)  -> Dict[str, Any]:
         return get(self._url_base + "/folder/listRecent")
     
     #ITEM
     @overload
-    def item_addFromURL(self, *, josn: dict):
+    def item_addFromURL(self, *, josn: dict)  -> Dict[str, Any]:
         ...
     @overload
     def item_addFromURL(self, *,
@@ -93,7 +93,7 @@ class Eagle():
         modificationTime: Optional[int],
         folderId: Optional[str],
         headers: Optional[dict],
-    ):
+    )  -> Dict[str, Any]:
         ...
     
     def item_addFromURL(
@@ -107,7 +107,7 @@ class Eagle():
         modificationTime: Optional[int],
         folderId: Optional[str],
         headers: Optional[dict],
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "url": url,
             "name": name,
@@ -121,10 +121,10 @@ class Eagle():
         return post(self._url_base + "/item/addFromURL", json=json)
     
     @overload
-    def item_addFromURLs(self, *, json: dict):
+    def item_addFromURLs(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def item_addFromURLs(self, *, items: List[URLItem], folderId: Optional[str]):
+    def item_addFromURLs(self, *, items: List[URLItem], folderId: Optional[str])  -> Dict[str, Any]:
         ...
     
     def item_addFromURLs(
@@ -132,7 +132,7 @@ class Eagle():
         json: Optional[dict],
         items: Optional[List[URLItem]],
         folderId: Optional[str],
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "items": [asdict(item) for item in items],
             "folderId": folderId,
@@ -140,7 +140,7 @@ class Eagle():
         return post(self._url_base + "/item/addFromURLs", json=json)
     
     @overload
-    def item_addFromPath(self, *, json: dict):
+    def item_addFromPath(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
     def item_addFromPath(
@@ -151,7 +151,7 @@ class Eagle():
         annotation: Optional[str],
         tags: Optional[List[str]],
         folderId: Optional[str],
-    ):
+    )  -> Dict[str, Any]:
         ...
     
     def item_addFromPath(
@@ -163,7 +163,7 @@ class Eagle():
         annotation: Optional[str],
         tags: Optional[List[str]],
         folderId: Optional[str],
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "path": path,
             "name": name,
@@ -175,10 +175,10 @@ class Eagle():
         return post(self._url_base + "/item/addFromPath", json=json)
     
     @overload
-    def item_addFromPaths(self, *, json: dict):
+    def item_addFromPaths(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def item_addFromPaths(self, *, items: List[PathItem], folderId: Optional[str]):
+    def item_addFromPaths(self, *, items: List[PathItem], folderId: Optional[str])  -> Dict[str, Any]:
         ...
     
     def item_addFromPaths(
@@ -186,7 +186,7 @@ class Eagle():
         json: Optional[dict],
         items: Optional[List[PathItem]],
         folderId: Optional[str],
-        ):
+        )  -> Dict[str, Any]:
         json = json or reject_none({
             "items": [asdict(item) for item in items],
             "folderId": folderId,
@@ -194,7 +194,7 @@ class Eagle():
         return post(self._url_base + "/item/addFromPaths", json=json)
     
     @overload
-    def item_addBookmark(self, *, json: dict):
+    def item_addBookmark(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
     def item_addBookmark(
@@ -205,7 +205,7 @@ class Eagle():
         tags: Optional[List[str]],
         modificationTime: Optional[int],
         folderId: Optional[str],
-    ):
+    )  -> Dict[str, Any]:
         ...
     
     def item_addBookmark(
@@ -217,7 +217,7 @@ class Eagle():
         tags: Optional[List[str]],
         modificationTime: Optional[int],
         folderId: Optional[str],
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "url": url,
             "name": name,
@@ -228,43 +228,43 @@ class Eagle():
         })
         return post(self._url_base + "/item/addBookmark")
     
-    def item_info(self, param: Optional[dict[str,str]]):
+    def item_info(self, param: Optional[dict[str,str]])  -> Dict[str, Any]:
         return get(self._url_base + f"/item/info{ dict2query(param) }")
     
-    def item_thumbnail(self, param: Optional[dict[str,str]]):
+    def item_thumbnail(self, param: Optional[dict[str,str]])  -> Dict[str, Any]:
         return get(self._url_base + f"/item/thumbnail{ dict2query(param) }")
     
-    def item_list(self, param: Optional[dict[str,str]]):
+    def item_list(self, param: Optional[dict[str,str]])  -> Dict[str, Any]:
         return get(self._url_base + f"/item/list{ dict2query(param) }")
     
     @overload
-    def item_refreshPalette(self, *, json: dict):
+    def item_refreshPalette(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def item_refreshPalette(self, *, id: str):
+    def item_refreshPalette(self, *, id: str)  -> Dict[str, Any]:
         ...
     
-    def item_refreshPalette(self, *, json: Optional[dict], id: Optional[str]):
+    def item_refreshPalette(self, *, json: Optional[dict], id: Optional[str])  -> Dict[str, Any]:
         json = json or {
             "id": id
         }
         return post(self._url_base + "/item/refreshPalette", json=json)
     
     @overload
-    def item_refreshThumbnail(self, *, json: dict):
+    def item_refreshThumbnail(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def item_refreshThumbnail(self, *, id: str):
+    def item_refreshThumbnail(self, *, id: str)  -> Dict[str, Any]:
         ...
     
-    def item_refreshThumbnail(self, *, json: Optional[dict], id: Optional[str]):
+    def item_refreshThumbnail(self, *, json: Optional[dict], id: Optional[str])  -> Dict[str, Any]:
         json = json or {
             "id": id
         }
         return post(self._url_base + "/item/refreshThumbnail", json=json)
     
     @overload
-    def item_update(self, *, json: dict):
+    def item_update(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
     def item_update(
@@ -274,7 +274,7 @@ class Eagle():
         annotation: Optional[str],
         url: Optional[str],
         star: Optional[int]
-    ):
+    )  -> Dict[str, Any]:
         ...
     
     def item_update(
@@ -285,7 +285,7 @@ class Eagle():
         annotation: Optional[str],
         url: Optional[str],
         star: Optional[int]
-    ):
+    )  -> Dict[str, Any]:
         json = json or reject_none({
             "id": id,
             "tags": tags,
@@ -296,21 +296,20 @@ class Eagle():
         return post(self._url_base + "/item/update", json=json)
     
     #LIBRARY
-    def library_info(self):
+    def library_info(self)  -> Dict[str, Any]:
         return get(self._url_base + "/library/info")
     
-    def library_history(self):
+    def library_history(self)  -> Dict[str, Any]:
         return get(self._url_base + "/library/history")
     
     @overload
-    def library_switch(self, *, json: dict):
+    def library_switch(self, *, json: dict)  -> Dict[str, Any]:
         ...
     @overload
-    def library_switch(self, *, libraryPath: str):
+    def library_switch(self, *, libraryPath: str)  -> Dict[str, Any]:
         ...
-    def library_switch(self, *, json: Optional[dict], libraryPath: Optional[str]):
+    def library_switch(self, *, json: Optional[dict], libraryPath: Optional[str])  -> Dict[str, Any]:
         json = json or {
             "libraryPath": libraryPath
         }
         return post(self._url_base + "/library/switch", json=json)
-    

@@ -20,7 +20,7 @@ setup(
     author='taC-h',
     author_email='tac.handstandingcat@gmail.com',
 
-    url='',
+    url='https://github.com/taC-h/eagle_cool',
 
     description='eagle.cool api library for Python',
     long_description=long_description,
