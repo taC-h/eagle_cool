@@ -4,3 +4,4 @@ testenv/
 build/
 dist/
 eagle_cool.egg-info/
+__pycache__/

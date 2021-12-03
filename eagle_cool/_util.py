@@ -2,16 +2,16 @@ from typing import Optional
 import requests
 
 
-def get(*args, **kwargs):
+def get(*args, **kwargs) -> requests.Response:
     if not "allow_redirects" in kwargs:
         kwargs["allow_redirects"] = True
-    return requests.get(*args, **kwargs).json()
+    return requests.get(*args, **kwargs)
 
 
-def post(*args, **kwargs):
+def post(*args, **kwargs) -> requests.Response:
     if not "allow_redirects" in kwargs:
         kwargs["allow_redirects"] = True
-    return requests.post(*args, **kwargs).json()
+    return requests.post(*args, **kwargs)
 
 def dict2query(d: Optional[dict[str, str]]):
     if d is None: return ""
