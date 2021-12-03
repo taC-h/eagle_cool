@@ -28,5 +28,5 @@ assert res["status"] == "success"
 #https://api.eagle.cool/folder/list
 res = eagle.folder_list()
 assert isinstance(res["data"], list)
-assert isinstance(res["data"]["imageCount"], int)
+assert isinstance(res["data"][0]["imageCount"], int)
 ```
